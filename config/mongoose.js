@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
-
-mongoose.connect(`mongodb://localhost/medical_data`);
-
-//Connection of mongoose with the database gives us the access to database.
-const db = mongoose.connection;
-
-db.on('error',console.error.bind(console,' error connecting to db '));
-
-// If the connection is open for us to interact with the database
-db.once('open',function(){
-    console.log('Successfully connected to the database');
-});
+// const {MONGO_URI} = require("../config/db.env");
+const MONGO_URI = "mongodb+srv://myselfanuragharsh:d1uxCkvux2uRB92D@cluster0.phgoywo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+mongoose
+	.connect(
+		MONGO_URI,{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		}
+	)
+	.then(() => {
+		console.log("connection established!");
+	})
+	.catch((err) => {
+		console.log("error ",err);
+	});

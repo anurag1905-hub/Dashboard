@@ -170,23 +170,48 @@ module.exports.home = async function(req,res){
     let tl = await Storage.findOne({name:"TL"});
     let hr = await Storage.findOne({name:"heartRate"});
 
-    if(lstm512==null||lstm1024==null||lstm2048==null||tl==null||hr==null){
-        return res.status(404).json({
-            message:"No models"
-        });
-    }
-
     let lstm512_x_values = [];
     let lstm1024_x_values = [];
     let lstm2048_x_values = [];
     let TL_x_values = [];
     let heart_x_values = [];
 
-    let lstm512_x_size = Math.min(1000,lstm512.values.length);
-    let lstm1024_x_size = Math.min(1000,lstm1024.values.length);
-    let lstm2048_x_size = Math.min(1000,lstm2048.values.length);
-    let tl_x_size = Math.min(1000,tl.values.length);
-    let hr_x_size = Math.min(1000,hr.values.length);
+    let lstm512_x_size,lstm1024_x_size,lstm2048_x_size,tl_x_size,hr_x_size;
+
+    if(lstm512==null){
+        lstm512_x_size = 0;
+    }
+    else{
+        lstm512_x_size = Math.min(1000,lstm512.values.length);
+    }
+
+    if(lstm1024==null){
+        lstm1024_x_size = 0;
+    }
+    else{
+        lstm1024_x_size = Math.min(1000,lstm1024.values.length);
+    }
+
+    if(lstm2048==null){
+        lstm2048_x_size = 0;
+    }
+    else{
+        lstm2048_x_size = Math.min(1000,lstm2048.values.length);
+    }
+
+    if(tl==null){
+        tl_x_size = 0;
+    }
+    else{
+        tl_x_size = Math.min(1000,tl.values.length);
+    }
+
+    if(hr==null){
+        hr_x_size = 0;
+    }
+    else{
+        hr_x_size = Math.min(1000,hr.values.length);
+    }
 
     for(let i=1;i<=lstm512_x_size;++i){
         lstm512_x_values.push(i);
@@ -209,11 +234,11 @@ module.exports.home = async function(req,res){
     }
 
 
-    let lstm512_values = lstm512.values.slice(-lstm512_x_size);
-    let lstm1024_values = lstm1024.values.slice(-lstm1024_x_size);
-    let lstm2048_values = lstm2048.values.slice(-lstm2048_x_size);
-    let tl_values = tl.values.slice(-tl_x_size);
-    let hr_values = hr.values.slice(-hr_x_size);
+    let lstm512_values = lstm512==null?[]:lstm512.values.slice(-lstm512_x_size);
+    let lstm1024_values = lstm1024==null?[]:lstm1024.values.slice(-lstm1024_x_size);
+    let lstm2048_values = lstm2048==null?[]:lstm2048.values.slice(-lstm2048_x_size);
+    let tl_values = tl==null?[]:tl.values.slice(-tl_x_size);
+    let hr_values = hr==null?[]:hr.values.slice(-hr_x_size);
 
     return res.render('ecg',{
         tl_values:tl_values,
