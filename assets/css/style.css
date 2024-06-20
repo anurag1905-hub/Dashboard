@@ -1,0 +1,99 @@
+body{
+    color:black;
+    background-color: antiquewhite;
+}
+
+.bloodPressureChart {
+    width:80%;
+    display:inline-block;
+}
+
+.sugarChart {
+    width:80%;
+    display: inline-block;
+}
+
+.refreshButton .btn{
+    margin-left:32%;
+    margin-top:4px;
+}
+
+.my-container{
+    display: flex;
+    flex-direction: row;
+    margin-top:12px;
+}
+
+.col-1{
+    width:50%;
+    margin:auto;
+}
+
+.col-2{
+    width:45%;
+    display:flex;
+    flex-direction: column;
+    justify-content:flex-start;
+}
+
+.userInformationcontainer {
+    width: 80%;
+    margin-left:0%; 
+    height:40%;
+}
+.userInformationcontainer table {
+    width: 100%;
+}
+
+.userInformationcontainer table td, .userInformationcontainer table tr, .userInformationcontainer table th {
+    border: 2px solid black;
+    height: 100%;
+    padding: 1rem; 
+}
+
+.picContainer {
+    height:40%;
+    margin-left:24%;
+    margin-top: 5%;
+}
+
+.status{
+    margin-top:18px;
+}
+
+body {
+  font-size: 15px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: white;
+  color:green;
+  text-decoration: none;
+}
+
+.active {
+  background-color: #4CAF50;
+}

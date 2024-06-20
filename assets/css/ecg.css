@@ -1,0 +1,55 @@
+body{
+    color:black;
+    background-color: antiquewhite;
+}
+
+.refreshButton .btn{
+    margin-left:44%;
+    margin-top:6px;
+}
+
+.container{
+    margin-top: 3rem;
+}
+
+.chartContainer{
+  max-width: 75%;
+  margin: auto;
+}
+
+body {
+  font-size: 15px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: white;
+  color:green;
+  text-decoration: none;
+}
+
+.active {
+  background-color: #4CAF50;
+}

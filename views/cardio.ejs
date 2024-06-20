@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <head>
+        <title>Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel = "stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <ul>
+            <li><a class="active" href="/">Cardio</a></li>
+            <li><a href="/ecg">ECG</a></li>
+        </ul>
+        <div class="my-container">
+            <div class="col-1">
+                <div class="bloodPressureChart">
+                    <canvas id="BloodPressure"></canvas>
+                    <canvas id="Sugar"></canvas>
+                </div>
+                <div class="refreshButton">
+                    <form action="/" method="get">
+                        <button type="submit" class="btn btn-success">Refresh Data</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="picContainer">
+                    <img src="images/person-image.jpg">
+                </div>
+                <div class="userInformationcontainer">
+                    <table>
+                        <tr>
+                            <th>Patient Id</th>
+                            <td>124</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>Male</td>
+                        </tr>
+                        <tr>
+                            <th>Smoker</th>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <th>Alcoholic</th>
+                            <td>No</td>
+                        </tr>
+                    </table>
+                    <br>
+
+                    <% if (very_low_risk) { %>
+                        <div class="alert alert-success">
+                            <strong>Very Low Risk</strong> of cardiovascular disease.
+                        </div>
+                    <% } else if(low_risk) { %>
+                        <div class="alert alert-info">
+                            <strong>Low Risk</strong> of cardiovascular disease.
+                        </div>
+                    <% } else if(medium_risk) { %>
+                        <div class="alert alert-warning">
+                            <strong>Medium Risk</strong> of cardiovascular disease.
+                        </div>
+                    <% } else if(high_risk) { %>
+                        <div class="alert alert-danger">
+                            <strong>High Risk</strong> of cardiovascular disease.
+                        </div>
+                    <% } else { %>
+                        <div class="alert alert-danger">
+                            <strong>Very High Risk !!</strong> of cardiovascular disease.
+                        </div>
+                    <% } %>
+
+                    <span style="visibility: hidden;" class="data">
+                        <span id="xValue"><%=xValues%></span>
+                        <span id="sbp"><%=SBP_values%></span>
+                        <span id="dbp"><%=DBP_values%></span>
+                        <span id="cholestrol"><%=Cholestrol_values%></span>
+                        <span id="glucose"><%=Glucose_values%></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+    <script src="js/script.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+
+        const xValues = (document.getElementById("xValue").innerHTML).split(",").map(Number);;
+        //console.log(xValues);
+        const SBP_values = (document.getElementById("sbp").innerHTML).split(",").map(Number);;
+        const DBP_values = (document.getElementById("dbp").innerHTML).split(",").map(Number);;
+        const Cholestrol_values = (document.getElementById("cholestrol").innerHTML).split(",").map(Number);;
+        const Glucose_values = (document.getElementById("glucose").innerHTML).split(",").map(Number);
+
+        new Chart("BloodPressure", {
+            type: "line",
+            data: {
+            labels: xValues,
+            datasets: [{ 
+                data: SBP_values,
+                borderColor: "red",
+                fill: false,
+                label:"Systolic Blood Pressure"
+            }, { 
+                data: DBP_values,
+                borderColor: "green",
+                fill: false,
+                label:"Diastolic Blood Pressure"
+            }
+            ]
+            },
+            options: {
+            legend: {display: true},
+            scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxTicksLimit: 30
+                        }
+                    }]
+                }
+            }
+        });
+        
+        new Chart("Sugar", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{ 
+                data: Cholestrol_values,
+                borderColor: "blue",
+                fill: false,
+                label:"Cholestrol"
+                },{ 
+                    data: Glucose_values,
+                    borderColor: "orange",
+                    fill: false,
+                    label:"Glucose"
+                }
+                ]
+            },
+            options: {
+                legend: {display: true},
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxTicksLimit: 30
+                        }
+                    }]
+                }
+            }});
+    </script>
+</html>

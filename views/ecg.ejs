@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <head>
+        <title>Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel = "stylesheet" type="text/css" href="css/ecg.css">
+    </head>
+    <body>
+        <ul>
+            <li><a href="/">Cardio</a></li>
+            <li><a class="active" href="/ecg">ECG</a></li>
+        </ul>
+        <div class="container">
+            <div class="jumbotron">
+                <div class="chartContainer">
+                    <canvas id="LSTM512"></canvas>
+                </div>
+                <div class="row">
+                    <div class="refreshButton">
+                        <form action="/ecg" method="get">
+                            <button type="submit" class="btn btn-success">Refresh Graph</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <div class="chartContainer">
+                    <canvas id="LSTM1024"></canvas>
+                </div>
+                <div class="row">
+                    <div class="refreshButton">
+                        <form action="/ecg" method="get">
+                            <button type="submit" class="btn btn-success">Refresh Graph</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <div class="chartContainer">
+                    <canvas id="LSTM2048"></canvas>
+                </div>
+                <div class="row">
+                    <div class="refreshButton">
+                        <form action="/ecg" method="get">
+                            <button type="submit" class="btn btn-success">Refresh Graph</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <div class="chartContainer">
+                    <canvas id="TransferLearning"></canvas>
+                </div>
+                <div class="row">
+                    <div class="refreshButton">
+                        <form action="/ecg" method="get">
+                            <button type="submit" class="btn btn-success">Refresh Graph</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <div class="chartContainer">
+                    <canvas id="HeartRate"></canvas>
+                </div>
+                <div class="row">
+                    <div class="refreshButton">
+                        <form action="/ecg" method="get">
+                            <button type="submit" class="btn btn-success">Refresh Graph</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <span style="visibility: hidden;" class="data">
+                <span id="tl"><%=tl_values%></span>
+                <span id="lstm512"><%=lstm512_values%></span>
+                <span id="lstm1024"><%=lstm1024_values%></span>
+                <span id="lstm2048"><%=lstm2048_values%></span>
+                <span id="tl_x"><%=TL_x_values%></span>
+                <span id="lstm512_x"><%=lstm512_x_values%></span>
+                <span id="lstm1024_x"><%=lstm1024_x_values%></span>
+                <span id="lstm2048_x"><%=lstm2048_x_values%></span>
+                <span id="hr"><%=hr_values%></span>
+                <span id="hr_x"><%=heart_x_values%></span>
+            </span>
+        </div>
+    </body>
+    <script src="js/script.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+
+        const tl_values = (document.getElementById("tl").innerHTML).split(",").map(Number);;
+        const lstm512_values = (document.getElementById("lstm512").innerHTML).split(",").map(Number);;
+        const lstm1024_values = (document.getElementById("lstm1024").innerHTML).split(",").map(Number);;
+        const lstm2048_values = (document.getElementById("lstm2048").innerHTML).split(",").map(Number);;
+        const hr_values = (document.getElementById("hr").innerHTML).split(",").map(Number);;
+        const tl_x_values = (document.getElementById("tl_x").innerHTML).split(",").map(Number);;
+        const lstm512_x_values = (document.getElementById("lstm512_x").innerHTML).split(",").map(Number);;
+        const lstm1024_x_values = (document.getElementById("lstm1024_x").innerHTML).split(",").map(Number);;
+        const lstm2048_x_values = (document.getElementById("lstm2048_x").innerHTML).split(",").map(Number);;
+        const hr_x_values = (document.getElementById("hr_x").innerHTML).split(",").map(Number);;
+
+        new Chart("LSTM512", {
+            type: "line",
+            data: {
+                labels: lstm512_x_values,
+                datasets: [{ 
+                    data: lstm512_values,
+                    borderColor: "red",
+                    fill: false,
+                    label:"LSTM 512 Window size"
+                }]
+            },
+            options: {
+            legend: {display: true},
+            scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxTicksLimit: 30
+                        }
+                    }]
+                }
+            }
+        });
+        
+        new Chart("LSTM1024", {
+            type: "line",
+            data: {
+                labels: lstm1024_x_values,
+                datasets: [{ 
+                data: lstm1024_values,
+                borderColor: "blue",
+                fill: false,
+                label:"LSTM 1024 Window size"
+                }]
+            },
+            options: {
+                legend: {display: true},
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxTicksLimit: 30
+                        }
+                    }]
+                }
+            }});
+
+        new Chart("LSTM2048", {
+            type: "line",
+            data: {
+                labels: lstm2048_x_values,
+                datasets: [{ 
+                data: lstm2048_values,
+                borderColor: "green",
+                fill: false,
+                label:"LSTM 2048 Window size"
+                }]
+            },
+            options: {
+                legend: {display: true},
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxTicksLimit: 30
+                        }
+                    }]
+                }
+            }});
+
+        new Chart("TransferLearning", {
+            type: "line",
+            data: {
+                labels: tl_x_values,
+                datasets: [{ 
+                data: tl_values,
+                borderColor: "orange",
+                fill: false,
+                label:"Transfer Learning"
+                }]
+            },
+            options: {
+                legend: {display: true},
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxTicksLimit: 30
+                        }
+                    }]
+                }
+            }});
+
+            new Chart("HeartRate", {
+            type: "line",
+            data: {
+                labels: hr_x_values,
+                datasets: [{ 
+                data: hr_values,
+                borderColor: "violet",
+                fill: false,
+                label:"Heart Rate"
+                }]
+            },
+            options: {
+                legend: {display: true},
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            maxTicksLimit: 30
+                        }
+                    }]
+                }
+            }});
+
+    </script>
+</html>
