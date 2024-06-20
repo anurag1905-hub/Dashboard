@@ -1,9 +1,9 @@
 const express = require('express');
-const port = 9000;
-
-const app = express();
 const dotenv = require('dotenv');
 require('dotenv').config();
+const port = process.env.port||9000;
+
+const app = express();
 
 const bodyParser = require('body-parser'); 
 const mongoose = require('mongoose');
